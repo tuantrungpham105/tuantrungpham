@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vịnh Hạ Long - Khám phá du lịch, văn hóa và ẩm thực</title>
+  <meta name="description" content="Trang web giới thiệu khu du lịch sinh thái Vịnh Hạ Long với giao diện tối hiện đại, phù hợp để nhúng vào Google Sites hoặc đăng trên GitHub Pages." />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+    :root {
+      --bg: #05070a;
+      --surface: #0d1117;
+      --surface-2: #111826;
+      --surface-3: #0b1420;
+      --primary: #42d3ff;
+      --primary-soft: rgba(66, 211, 255, 0.14);
+      --gold: #ffd166;
+      --text: #f5f7fb;
+      --muted: #a7b3c8;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --max-width: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Be Vietnam Pro', Arial, sans-serif;
+      line-height: 1.75;
+    }
+
+    body {
+      background-image:
+        radial-gradient(circle at top left, rgba(66, 211, 255, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(255, 209, 102, 0.06), transparent 24%),
+        linear-gradient(180deg, #030507 0%, #05070a 100%);
+    }
+
+    img, iframe {
+      max-width: 100%;
+      display: block;
+      border: 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--max-width));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(4, 7, 12, 0.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.08rem;
+      color: var(--text);
+      letter-spacing: 0.2px;
+    }
+
+    .brand span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.96rem;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hero {
+      min-height: 92vh;
+      background:
+        linear-gradient(rgba(2, 7, 14, 0.45), rgba(2, 7, 14, 0.85)),
+        url('https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -180px -10%;
+      height: 280px;
+      background: radial-gradient(circle, rgba(66, 211, 255, 0.18), transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 780px;
+      padding: 80px 0 90px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 9px 15px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #d9f8ff;
+      font-size: 0.95rem;
+    }
+
+    .hero h1,
+    .section-title,
+    .footer-title {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.3px;
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(2.5rem, 5vw, 4.8rem);
+      line-height: 1.1;
+      color: #ffffff;
+      text-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero h1 .accent {
+      color: var(--gold);
+    }
+
+    .hero p {
+      margin: 0 0 28px;
+      font-size: 1.07rem;
+      color: #dbe7f7;
+      max-width: 720px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #66e0ff);
+      color: #041018;
+      box-shadow: 0 10px 24px rgba(66, 211, 255, 0.22);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      color: #f5f7fb;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .meta-strip {
+      margin-top: -42px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .meta-card {
+      background: rgba(13, 17, 23, 0.94);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .meta-item {
+      padding: 12px 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .meta-label {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .main-layout {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 28px;
+      margin: 38px auto 60px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 86px;
+    }
+
+    .toc {
+      background: linear-gradient(180deg, rgba(17, 24, 38, 0.96), rgba(10, 16, 24, 0.96));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .toc-header {
+      padding: 18px 20px;
+      background: linear-gradient(135deg, #0d2230, #12384c 60%, #17324a);
+      color: #f8fbff;
+      font-weight: 800;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 12px;
+    }
+
+    .toc li + li {
+      margin-top: 6px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 11px 12px;
+      border-radius: 12px;
+      color: var(--muted);
+      transition: 0.2s ease;
+    }
+
+    .toc a:hover,
+    .toc a.active {
+      background: var(--primary-soft);
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .content {
+      min-width: 0;
+    }
+
+    .article-card,
+    .feature-panel,
+    .media-card,
+    .footer-shell {
+      background: linear-gradient(180deg, rgba(13, 17, 23, 0.97), rgba(10, 14, 20, 0.97));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .article-card {
+      padding: 30px;
+      margin-bottom: 26px;
+    }
+
+    .section-kicker {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 0.83rem;
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      color: #ffffff;
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    .article-card h3 {
+      color: #ffffff;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      font-size: 1.24rem;
+    }
+
+    .lead,
+    .article-card p,
+    .article-card li,
+    .mini-card p,
+    .highlight-box p,
+    .food-caption,
+    .footer-col p,
+    .footer-col li,
+    .feature-panel p,
+    .cta p {
+      color: #d8e1ef;
+    }
+
+    .cover-image,
+    .gallery figure,
+    .food-item,
+    .map-frame,
+    .video-frame {
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--surface-3);
+    }
+
+    .cover-image img,
+    .gallery img,
+    .food-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .note-box {
+      margin-top: 18px;
+      padding: 16px 18px;
+      background: rgba(66, 211, 255, 0.08);
+      border-left: 5px solid var(--primary);
+      border-radius: 15px;
+      color: #ecfaff;
+    }
+
+    .cards,
+    .gallery,
+    .highlight-grid,
+    .info-grid,
+    .food-gallery,
+    .footer-grid,
+    .media-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gallery,
+    .media-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .highlight-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .food-gallery {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .info-grid,
+    .footer-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .mini-card,
+    .highlight-box,
+    .food-item,
+    .footer-col,
+    .stat-box {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(17, 24, 38, 0.9), rgba(12, 18, 28, 0.95));
+    }
+
+    .mini-card,
+    .highlight-box,
+    .footer-col,
+    .stat-box {
+      padding: 18px;
+    }
+
+    .mini-card h4,
+    .highlight-box strong,
+    .footer-col h4,
+    .stat-box h4 {
+      margin: 0 0 10px;
+      color: #ffffff;
+      font-size: 1.02rem;
+    }
+
+    .gallery figure {
+      margin: 0;
+      padding: 12px;
+    }
+
+    .gallery figcaption {
+      margin-top: 10px;
+      font-size: 0.94rem;
+      color: var(--muted);
+    }
+
+    .food-item img {
+      aspect-ratio: 4 / 3;
+    }
+
+    .food-caption {
+      padding: 14px 14px 16px;
+      font-size: 0.95rem;
+    }
+
+    .info-list {
+      padding-left: 20px;
+      margin: 10px 0 0;
+    }
+
+    .info-list li + li {
+      margin-top: 8px;
+    }
+
+    .feature-panel {
+      padding: 26px;
+      margin-bottom: 26px;
+    }
+
+    .media-card {
+      padding: 26px;
+      margin-bottom: 26px;
+    }
+
+    .video-frame iframe,
+    .map-frame iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 340px;
+    }
+
+    .stat-box {
+      text-align: center;
+    }
+
+    .stat-box .number {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .cta {
+      margin-top: 26px;
+      background: linear-gradient(135deg, #0f2434, #10293b 50%, #0d1d2d);
+      border: 1px solid var(--border);
+      color: #ffffff;
+      text-align: center;
+      padding: 38px 24px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      margin: 0 0 12px;
+      color: #ffffff;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+    }
+
+    footer {
+      padding: 0 0 30px;
+      margin-top: 34px;
+    }
+
+    .footer-shell {
+      padding: 28px;
+    }
+
+    .footer-grid {
+      margin-top: 0;
+    }
+
+    .footer-title {
+      margin: 0 0 8px;
+      color: #ffffff;
+      font-size: 2rem;
+    }
+
+    .footer-subtitle {
+      margin: 0 0 24px;
+      color: var(--muted);
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-col li + li {
+      margin-top: 8px;
+    }
+
+    .footer-bottom {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.94rem;
+      text-align: center;
+    }
+
+    @media (max-width: 1040px) {
+      .meta-card,
+      .highlight-grid,
+      .food-gallery,
+      .info-grid,
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links {
+        display: none;
+      }
+
+      .meta-card,
+      .cards,
+      .gallery,
+      .highlight-grid,
+      .food-gallery,
+      .info-grid,
+      .footer-grid,
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 78vh;
+      }
+
+      .article-card,
+      .feature-panel,
+      .media-card,
+      .footer-shell {
+        padding: 22px;
+      }
+
+      .hero h1,
+      .section-title,
+      .footer-title,
+      .cta h2 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#top" class="brand">Du lịch <span>Vịnh Hạ Long</span></a>
+      <nav class="nav-links">
+        <a href="#gioi-thieu">Giới thiệu</a>
+        <a href="#di-chuyen">Di chuyển</a>
+        <a href="#tham-quan">Tham quan</a>
+        <a href="#am-thuc">Ẩm thực</a>
+        <a href="#video-map">Video & bản đồ</a>
+        <a href="#bao-ve">Bảo vệ môi trường</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="container hero-content">
+      <h1>Khám phá <span class="accent">Vịnh Hạ Long</span><br />theo phong cách hiện đại</h1>
+      <p>
+        Từ vẻ đẹp hùng vĩ của biển trời, những đảo đá vôi kỳ ảo cho đến ẩm thực đậm chất vùng biển, Vịnh Hạ Long luôn là một điểm đến tạo cảm giác vừa thư giãn vừa choáng ngợp ngay từ ánh nhìn đầu tiên.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#gioi-thieu">Bắt đầu khám phá</a>
+        <a class="btn btn-outline" href="#video-map">Xem video & bản đồ</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="meta-strip">
+    <div class="container">
+      <div class="meta-card">
+        <div class="meta-item">
+          <div class="meta-label">Địa điểm</div>
+          <div class="meta-value">Quảng Ninh, Việt Nam</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Phong cách du lịch</div>
+          <div class="meta-value">Sinh thái, nghỉ dưỡng, khám phá</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Trải nghiệm nổi bật</div>
+          <div class="meta-value">Du thuyền, kayak, hang động</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Phù hợp với</div>
+          <div class="meta-value">Học sinh, gia đình, du khách</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container main-layout">
+    <aside class="sidebar">
+      <div class="toc">
+        <div class="toc-header">Nội dung chính</div>
+        <ul>
+          <li><a href="#gioi-thieu" class="active">Giới thiệu chung</a></li>
+          <li><a href="#di-chuyen">Đi đến Hạ Long</a></li>
+          <li><a href="#tham-quan">Điểm tham quan</a></li>
+          <li><a href="#am-thuc">Ẩm thực đặc trưng</a></li>
+          <li><a href="#video-map">Video & Google Map</a></li>
+          <li><a href="#bao-ve">Du lịch bền vững</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="content">
+      <section class="article-card" id="gioi-thieu">
+        <span class="section-kicker">Halong Bay</span>
+        <h2 class="section-title">Giới thiệu chung</h2>
+        <p class="lead">
+          Vịnh Hạ Long là một trong những điểm đến nổi bật nhất của du lịch Việt Nam. Nơi đây gây ấn tượng mạnh bởi mặt nước xanh thẫm, các dãy núi đá vôi muôn hình và cảm giác thanh bình rất riêng của vùng biển đảo phía Bắc.
+        </p>
+      </section>
+
+      <section class="article-card" id="di-chuyen">
+        <span class="section-kicker">Lịch trình</span>
+        <h2 class="section-title">Đi đến Hạ Long như thế nào?</h2>
+        <p>
+          Hiện nay việc di chuyển đến Hạ Long khá thuận tiện. Từ Hà Nội hoặc các tỉnh lân cận, du khách có thể chọn xe khách, limousine, ô tô cá nhân hoặc xe máy tùy vào nhu cầu và chi phí.
+        </p>
+        <div class="cards">
+          <div class="mini-card">
+            <h4>Xe khách hoặc limousine</h4>
+            <p>Phù hợp với học sinh, sinh viên và gia đình vì tiện lợi, nhanh và đỡ mệt trong quá trình di chuyển.</p>
+          </div>
+          <div class="mini-card">
+            <h4>Ô tô cá nhân hoặc xe máy</h4>
+            <p>Giúp chủ động thời gian, có thể dừng ở nhiều điểm đẹp trên đường và linh hoạt hơn khi tham quan.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="article-card" id="tham-quan">
+        <span class="section-kicker">Must-see</span>
+        <h2 class="section-title">Những điểm tham quan hấp dẫn</h2>
+        <p>
+          Hạ Long có nhiều điểm đến nổi bật phù hợp cho cả tham quan ngắn ngày lẫn nghỉ dưỡng. Mỗi khu vực lại đem đến một trải nghiệm khác nhau, từ ngắm toàn cảnh trên cao đến khám phá hang động và vui chơi trên biển.
+        </p>
+        <ul class="info-list">
+          <li><strong>Đảo Ti Tốp:</strong> nổi bật với bãi tắm đẹp và điểm ngắm toàn cảnh từ trên cao.</li>
+          <li><strong>Hang Sửng Sốt:</strong> không gian rộng, đẹp, thích hợp cho trải nghiệm khám phá thiên nhiên.</li>
+          <li><strong>Bãi Cháy:</strong> sôi động, phù hợp vui chơi và nghỉ dưỡng cùng gia đình, bạn bè.</li>
+          <li><strong>Đảo Tuần Châu:</strong> thuận tiện cho du lịch và kết hợp nhiều hoạt động giải trí.</li>
+        </ul>
+        <div class="gallery">
+          <figure>
+            <img src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80" alt="Đảo đá ở Vịnh Hạ Long" />
+            <figcaption>Những khối đá vôi tạo nên nét nhận diện đặc trưng của Vịnh Hạ Long.</figcaption>
+          </figure>
+          <figure>
+            <img src="https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=1200&q=80" alt="Du thuyền trên Vịnh Hạ Long" />
+            <figcaption>Du thuyền là một trong những hình thức tham quan phổ biến và rất đẹp mắt.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="article-card" id="am-thuc">
+        <span class="section-kicker">Food & Taste</span>
+        <h2 class="section-title">Ẩm thực đặc trưng</h2>
+        <p>
+          Một điểm khiến Hạ Long ghi dấu trong lòng du khách chính là ẩm thực vùng biển. Từ các món hải sản tươi đến chả mực nổi tiếng, khu vực này đem lại cảm giác vừa dân dã vừa hấp dẫn.
+
+        <div class="cards">
+          <div class="mini-card">
+            <h4>Chả mực</h4>
+            <p>Món ăn nổi tiếng của Quảng Ninh, thường được nhắc đến như một đặc sản tiêu biểu khi nói về Hạ Long.</p>
+          </div>
+          <div class="mini-card">
+            <h4>Hải sản tươi sống</h4>
+            <p>Tôm, cua, ghẹ, bề bề, mực và nhiều loại ốc giúp bữa ăn mang hương vị rõ nét của biển.</p>
+          </div>
+        </div>
+
+        <div class="food-gallery">
+          <div class="food-item">
+            <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1200&q=80" alt="Món hải sản minh họa" />
+            <div class="food-caption">Ảnh minh họa hải sản biển được thêm để phần ẩm thực sinh động và cuốn hút hơn.</div>
+          </div>
+          <div class="food-item">
+            <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1200&q=80" alt="Món ăn từ hải sản" />
+            <div class="food-caption">Các món ăn từ hải sản tạo cảm giác phong phú, hợp với chủ đề du lịch biển.</div>
+          </div>
+          <div class="food-item">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80" alt="Ẩm thực trình bày đẹp mắt" />
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-panel" id="video-map">
+        <span class="section-kicker">Media</span>
+        <h2 class="section-title">Video giới thiệu và Google Map</h2>
+
+        <div class="media-grid">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/SpOWgms2uto" title="Video giới thiệu Hạ Long" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="map-frame">
+            <iframe src="https://www.google.com/maps?q=Ha+Long+Bay,+Quang+Ninh,+Vietnam&output=embed" title="Bản đồ Vịnh Hạ Long" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="stat-box">
+            <span class="number">01</span>
+            <h4>Khung video</h4>
+          </div>
+          <div class="stat-box">
+            <span class="number">01</span>
+            <h4>Khung bản đồ</h4>
+          </div>
+          <div class="stat-box">
+            <span class="number">100%</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="article-card" id="bao-ve">
+        <span class="section-kicker">Sustainable Travel</span>
+        <h2 class="section-title">Bảo vệ môi trường và du lịch bền vững</h2>
+        <p>
+          Vẻ đẹp của Vịnh Hạ Long sẽ được giữ lâu dài khi mỗi người có ý thức bảo vệ cảnh quan thiên nhiên. Không xả rác bừa bãi, hạn chế nhựa dùng một lần và giữ gìn vệ sinh khi tham quan là những hành động rất cần thiết.
+        </p>
+        <div class="note-box">
+          Thông điệp của website: hãy khám phá thiên nhiên bằng thái độ văn minh, có trách nhiệm và biết trân trọng môi trường sống.
+        </div>
+      </section>
+
+      <section class="cta">
+        <h2>Vịnh Hạ Long - điểm đến vừa hùng vĩ vừa thơ mộng</h2>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-shell">
+
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Giới thiệu</h4>
+          <p> chúng tôi vinh dự được chứng nhận là một trong các tập đoàn đào lửa trên không gian mạng lớn nhất thế giới.</p>
+        </div>
+        <div class="footer-col">
+          <h4>CẢM ƠN BẠN</h4>
+          <ul>
+            <li>cảm ơn bạn đã dành ít thời gian ghé qua trang web của chúng tôi.</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Liên lạc</h4>
+          <ul>
+            <li>sđt: 676767676767</li>
+            <li>gmail: tuantrungpham105@gmail.com</li>
+            <li>cơ sở liên lạc: khu tự trị 103 bắc kinh</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    const links = document.querySelectorAll('.toc a');
+    const sections = [...links].map(link => document.querySelector(link.getAttribute('href')));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          links.forEach((link) => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.toc a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, {
+      rootMargin: '-30% 0px -55% 0px',
+      threshold: 0.1
+    });
+
+    sections.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+  </script>
+</body>
+</html>
